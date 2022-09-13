@@ -55,7 +55,6 @@ public class AccessTokenService {
 		map.add("grant_type", config.oauth2ResponseDTO().getAuthorizationGrantType());
 		map.add("scope", config.oauth2ResponseDTO().getScope());
 		
-		
 		httpHeaders = new HttpHeaders();
 		httpHeaders.add(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
 		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -74,5 +73,7 @@ public class AccessTokenService {
 		
 		return accessTokenResponseDTO.getAccessToken();
 	}
+	
+	
 	
 }
