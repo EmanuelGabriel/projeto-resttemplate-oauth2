@@ -8,7 +8,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,10 +18,12 @@ import org.springframework.web.client.RestTemplate;
  *
  */
 
-@Service
-public class TesteService {
+@Component
+public class TesteAppService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(TesteService.class);
+	private static final Logger LOG = LoggerFactory.getLogger(TesteAppService.class);
+
+	public static final String AUTHORIZATION = "Authorization";
 
 	@Value("${url.base.api.bb.sandbox}")
 	private String urlBaseApiBbSandBox;
@@ -30,15 +32,14 @@ public class TesteService {
 	private RestTemplate restTemplate;
 
 	@Autowired
-	private AccessTokenService accessTokenService;
-
+	private TokenService tokenService;
 
 	/**
-	 * EXEMPLO DE REQUISIÇÃO: /arrecadacao-qrcodes?gw-dev-app-key=d27b37790cffab601363e17d00050356b901a5b8&=62191&codigoGuiaRecebimento=83660000000199800053846101173758000000000018
+	 * Retorna o Token
+	 *
 	 * @return String
 	 */
-	public String buscarArrecadacaoQrCode(String numeroConvenio, String codigoGuiaRecebimento) {
-		
+	public String buscarArrecadacao(String numeroConvenio, String codigoGuiaRecebimento) throws Exception {
 		LOG.info("Buscar arrecadação qr code - NumeroConvenio: {}; CodigoGuiaRecebimento: {}", numeroConvenio, codigoGuiaRecebimento);
 		
 		String url = urlBaseApiBbSandBox
@@ -49,29 +50,28 @@ public class TesteService {
 				.concat("&")
 				.concat("codigoGuiaRecebimento=")
 				.concat(codigoGuiaRecebimento);
-		
 		LOG.info("URL: {}", url);
-		
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "Bearer " + accessTokenService.getAcessToken());
-		HttpEntity<Void> request = new HttpEntity<>(headers);
 		
 		ResponseEntity<String> response = null;
 		
 		try {
-
+			
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Authorization", "Bearer " + tokenService.getToken());
+			HttpEntity<Void> request = new HttpEntity<>(headers);
+			
 			response = restTemplate.exchange(url, HttpMethod.GET, request, String.class);
 			LOG.info("Response: {}", response.getBody());
 
+			return response.getBody();
+
 		} catch (RestClientException e) {
 			LOG.info("Erro: {}", e.getMessage());
+			throw new Exception("FALHA CLIENT");
+		} catch (Exception e) {
+			throw new Exception("FALHA TOKEN");
 		}
 
-		return response.getBody();
-		
 	}
-	
-	
-	
-	
+
 }
