@@ -44,6 +44,7 @@ public class TesteController {
 		return ResponseEntity.ok().body(resposta);
 	}
 
+	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> teste(
 			@RequestParam(value = "numeroConvenio") String numeroConvenio,
@@ -51,8 +52,10 @@ public class TesteController {
 		LOG.info("GET /api");
 		
 		try {
-			String resposta = service.buscarArrecadacao(numeroConvenio, codigoGuiaRecebimento);
+			
+			String resposta = service.buscarArrecadacaoQrCode(numeroConvenio, codigoGuiaRecebimento);
 			return ResponseEntity.ok().body(resposta);
+		
 		} catch (RestClientException e) {
 			LOG.info("Erro: {}", e.getMessage());
 			throw new Exception("FALHA CLIENT");

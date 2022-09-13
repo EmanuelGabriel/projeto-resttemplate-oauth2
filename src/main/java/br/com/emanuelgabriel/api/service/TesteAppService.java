@@ -39,7 +39,7 @@ public class TesteAppService {
 	 *
 	 * @return String
 	 */
-	public String buscarArrecadacao(String numeroConvenio, String codigoGuiaRecebimento) throws Exception {
+	public String buscarArrecadacaoQrCode(String numeroConvenio, String codigoGuiaRecebimento) throws Exception {
 		LOG.info("Buscar arrecadação qr code - NumeroConvenio: {}; CodigoGuiaRecebimento: {}", numeroConvenio, codigoGuiaRecebimento);
 		
 		String url = urlBaseApiBbSandBox

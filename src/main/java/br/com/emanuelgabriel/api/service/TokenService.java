@@ -39,6 +39,7 @@ public class TokenService {
 	private RestTemplate restTemplate;
 	
 	private String token;
+	
 	private boolean tokenValido;
 
 	public TokenService() {
@@ -48,13 +49,18 @@ public class TokenService {
 		this.token = token;
 	}
 
+	/**
+	 * Retorna o token gerado
+	 * @return String
+	 * @throws Exception
+	 */
 	public String getToken() throws Exception {
 		try {
 			
 			if (!tokenValido) {
 				this.token = String.valueOf(new Date().getTime());
 				this.tokenValido = true;
-				System.out.println("NOVO TOKEN: " + token);
+				LOG.info("Novo Token: {}", this.token);
 				
 				MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
 				map.add("client_id", config.oauth2ResponseDTO().getClientId());
@@ -71,7 +77,7 @@ public class TokenService {
 				String body = restTemplate.postForEntity(config.providerAppTokenUri().getTokenUri().concat("?developer_application_key=".concat(config.headerResponseDTO().getChaveAppDeveloper())), httpEntity , String.class).getBody();
 				LOG.info("Body: {}", body);
 				
-				ObjectMapper objectMapper = new ObjectMapper();
+				var objectMapper = new ObjectMapper();
 				JsonNode jsonNodeBody = objectMapper.readValue(body, JsonNode.class);
 
 				this.token = jsonNodeBody.get("access_token").asText();
