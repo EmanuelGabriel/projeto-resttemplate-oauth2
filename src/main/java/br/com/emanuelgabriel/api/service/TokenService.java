@@ -15,10 +15,9 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import br.com.emanuelgabriel.api.config.PropriedadesOauthConfig;
+import br.com.emanuelgabriel.api.mapper.response.AccessTokenResponseDTO;
+import br.com.emanuelgabriel.api.utils.JSONUtil;
 
 /**
  * 
@@ -77,10 +76,10 @@ public class TokenService {
 				String body = restTemplate.postForEntity(config.providerAppTokenUri().getTokenUri().concat("?developer_application_key=".concat(config.headerResponseDTO().getChaveAppDeveloper())), httpEntity , String.class).getBody();
 				LOG.info("Body: {}", body);
 				
-				var objectMapper = new ObjectMapper();
-				JsonNode jsonNodeBody = objectMapper.readValue(body, JsonNode.class);
+				AccessTokenResponseDTO accessTokenDto = JSONUtil.convertJsonToJava(body, AccessTokenResponseDTO.class);
+				LOG.info("AccessToken: {}", accessTokenDto);
 
-				this.token = jsonNodeBody.get("access_token").asText();
+				this.token = accessTokenDto.getAccessToken();
 				LOG.info("Token: {}", this.token);
 
 			} else {
