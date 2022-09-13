@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.emanuelgabriel.api.TesteAppService;
 import br.com.emanuelgabriel.api.service.TesteService;
 
 /**
@@ -20,26 +19,16 @@ import br.com.emanuelgabriel.api.service.TesteService;
  */
 
 @RestController
-@RequestMapping(value = "/teste", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TesteController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(TesteController.class);
 
 	@Autowired
-	private TesteAppService service;
-
-	@Autowired
 	private TesteService testeService;
 
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> teste() {
-		LOG.info("GET /teste");
-		var resposta = service.buscarArrecadacao();
-		return ResponseEntity.ok().body(resposta);
-	}
-
 	@GetMapping(value = "/arrecadacao-qr-code", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> testeRestTemplate(@RequestParam(value = "numeroConvenio") String numeroConvenio, 
+	public ResponseEntity<String> testeRestTemplate(@RequestParam(value = "numeroConvenio") String numeroConvenio,
 			@RequestParam(value = "codigoGuiaRecebimento") String codigoGuiaRecebimento) {
 		LOG.info("GET /teste/arrecadacao-qr-code - {};{}", numeroConvenio, codigoGuiaRecebimento);
 		var resposta = testeService.buscarArrecadacaoQrCode(numeroConvenio, codigoGuiaRecebimento);

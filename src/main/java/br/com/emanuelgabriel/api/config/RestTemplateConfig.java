@@ -1,5 +1,7 @@
 package br.com.emanuelgabriel.api.config;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -8,13 +10,14 @@ import org.springframework.web.client.RestTemplate;
  *
  */
 
-//@Configuration
+@Configuration
 public class RestTemplateConfig {
 
-	//@Bean
+	@Bean
 	public RestTemplate restTemplate() {
 		RestTemplate restTemplate = new RestTemplate();
-		// restTemplate.setInterceptors(Collections.singletonList(new RequestResponseHandlerInterceptorResttemplate()));
+		// restTemplate.setInterceptors(Collections.singletonList(new
+		// RequestResponseHandlerInterceptorResttemplate()));
 		return restTemplate;
 
 	}
