@@ -1,0 +1,27 @@
+{"properties": [
+  {
+    "name": "url.base.api.bb.sandbox",
+    "type": "java.lang.String",
+    "description": "A description for 'url.base.api.bb.sandbox'"
+  },
+  {
+    "name": "client.registration.name",
+    "type": "java.lang.String",
+    "description": "A description for 'client.registration.name'"
+  },
+  {
+    "name": "bearer.token",
+    "type": "java.lang.String",
+    "description": "A description for 'bearer.token'"
+  },
+  {
+    "name": "header.app.headerBasicAuthorization",
+    "type": "java.lang.String",
+    "description": "A description for 'header.app.headerBasicAuthorization'"
+  },
+  {
+    "name": "header.app.chaveAppDeveloper",
+    "type": "java.lang.String",
+    "description": "A description for 'header.app.chaveAppDeveloper'"
+  }
+]}
