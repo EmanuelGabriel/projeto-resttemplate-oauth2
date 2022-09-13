@@ -61,6 +61,7 @@ public class AccessTokenService {
 		httpHeaders.set("Authorization", config.headerResponseDTO().getHeaderBasicAuthorization());
 		var httpEntity = new HttpEntity<MultiValueMap<String, String>>(map, httpHeaders);
 
+		//TODO: EXEMPLO DE REQUISIÇÃO VIA POST/TOKEN: https://oauth.sandbox.bb.com.br/oauth/token?developer_application_key=d27b37790cffab601363e17d00050356b901a5b8
 		accessTokenResponseDTO = restTemplate.postForEntity(config.providerAppTokenUri().getTokenUri().concat("?developer_application_key=".concat(config.headerResponseDTO().getChaveAppDeveloper())), httpEntity , AccessTokenResponseDTO.class).getBody();
 		LOG.info("Response: {}", accessTokenResponseDTO);
 		

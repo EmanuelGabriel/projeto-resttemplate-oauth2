@@ -33,7 +33,7 @@ public class TesteService {
 	private AccessTokenService accessTokenService;
 
 	/**
-	 * EXEMPLO DE REQUISIÇÃO: /arrecadacao-qrcodes?gw-dev-app-key=d27b37790cffab601363e17d00050356b901a5b8&=62191&codigoGuiaRecebimento=83660000000199800053846101173758000000000018";
+	 * EXEMPLO DE REQUISIÇÃO: /arrecadacao-qrcodes?gw-dev-app-key=d27b37790cffab601363e17d00050356b901a5b8&=62191&codigoGuiaRecebimento=83660000000199800053846101173758000000000018
 	 * @return String
 	 */
 	public String buscarArrecadacaoQrCode(String numeroConvenio, String codigoGuiaRecebimento) {
