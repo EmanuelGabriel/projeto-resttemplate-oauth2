@@ -12,6 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * 
+ * @author emanuel.sousa
+ *
+ */
+
 @Service
 public class TesteService {
 

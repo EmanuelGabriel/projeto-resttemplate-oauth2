@@ -28,9 +28,10 @@ public class TesteController {
 	private TesteService testeService;
 
 	@GetMapping(value = "/arrecadacao-qr-code", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> testeRestTemplate(@RequestParam(value = "numeroConvenio") String numeroConvenio,
+	public ResponseEntity<String> testeRestTemplate(
+			@RequestParam(value = "numeroConvenio") String numeroConvenio,
 			@RequestParam(value = "codigoGuiaRecebimento") String codigoGuiaRecebimento) {
-		LOG.info("GET /teste/arrecadacao-qr-code - {};{}", numeroConvenio, codigoGuiaRecebimento);
+		LOG.info("GET /api/arrecadacao-qr-code - {};{}", numeroConvenio, codigoGuiaRecebimento);
 		var resposta = testeService.buscarArrecadacaoQrCode(numeroConvenio, codigoGuiaRecebimento);
 		return ResponseEntity.ok().body(resposta);
 	}
